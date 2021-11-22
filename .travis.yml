@@ -1,0 +1,16 @@
+language: node_js
+env:
+  - DATABASE_URL=postgresql://postgres@localhost:5432/taxi_trips
+
+node_js:
+  - 12
+before_script:
+  - psql -c 'create database taxi_trips;' -U postgres
+  - psql -U postgres -d taxi_trips -a -f database.sql
+services:
+  - postgresql
+addons:
+  postgresql: '9.4'
+  apt:
+    packages:
+      - postgresql-server-dev-9.4
